@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResTaskest - Restful API</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .login,
+        .image {
+            min-height: 100vh
+        }
+
+        .bg-image {
+            background-image: url('./main.jpg');
+            background-size: cover;
+            background-position: center center
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-6 d-none d-md-flex bg-image"></div>
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-xl-6 mx-auto">
+                                <h3 class="display-4">Login to use ResTaskest API</h3> <br>
+                                <form action="/login" method="POST">
+                                    <div class="form-group mb-3"> 
+                                        <input id="inputEmail" type="email" placeholder="Email address" name="email" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                                     </div>
+                                    <div class="form-group mb-3"> 
+                                        <input id="inputPassword" type="password" name="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-danger">
+                                        <br>
+                                     </div>
+                                      <button type="submit" class="btn btn-danger btn-block text-uppercase mb-2 rounded-pill shadow-sm">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

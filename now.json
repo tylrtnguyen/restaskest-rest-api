@@ -1,0 +1,24 @@
+{
+    "version":2,
+    "name":"restaskest-rest-api",
+    "builds": [
+        { 
+            "src": "dist/index.js", 
+            "use": "@now/node",
+            "config": { "distDir": "dist" }
+        }
+    ],
+    "routes":[
+        {
+            "src":"/",
+            "dest":"./dist/index.js",
+            "methods":["GET"]
+        },
+        {
+            "src":"/login",
+            "dest":"./dist/index.js",
+            "methods":["POST"]
+        }
+    ]
+
+}
