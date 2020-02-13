@@ -9,6 +9,3 @@ content-type: application/json
 POST http://localhost:5000/api/user/add
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InRob25nbmd1eWVuIiwicGFzc3dvcmQiOiJwYXNzd29yZCJ9LCJpYXQiOjE1ODE0MzkxMDN9.aMmyn3RjpEtbiRTFnkoPy0BADCycsWywcFZOA1Z7Rys
-
-###
-GET http://localhost:5000/api
