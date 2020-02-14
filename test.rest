@@ -8,4 +8,4 @@ content-type: application/json
 ###
 GET http://restaskest-rest-api.herokuapp.com/api/user
 Content-Type: application/json
-Authorization: Bearer your_
+Authorization: Bearer your_token_here
