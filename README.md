@@ -44,7 +44,7 @@ ID | Schema Name
 #### Link to access: http://restaskest-rest-api.herokuapp.com/
 Endpoint | Method | Purpose
 --- | --- | ---
-/register | GET | Add a new user (JSON format {name, email, password} )
+/register | POST | Add a new user (JSON format {name, email, password} )
 /login | POST | Get a new token (JSON format {email, password})
 
 
