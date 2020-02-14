@@ -1,19 +1,19 @@
-### REST api with MongoDB, Node, and Express
+# REST api with MongoDB, Node, and Express
 
 <hr>
 
-### Documentation
+## Documentation
 
-### How to use the token for the REST API
+### 1. How to use the token for the REST API
 #### Use curl or any supporting pieces of software (insomnia, postman) or extension (REST Client on VS Code)
 
-### Request example
+#### Request example
 ![Request Image](./assets/request.png)
 
-### Output
+#### Output
 ![Output Image](./assets/output.png)
 
-### API Endpoint
+### 2. API Endpoint
 #### API URL: http://restaskest-rest-api.herokuapp.com/api
 Endpoint | Method | Purpose
 --- | --- | ---
@@ -23,7 +23,7 @@ Endpoint | Method | Purpose
 /schema_name/:id | PUT | Update
 /schema_name/:id | DELETE | Delete
 
-### Available Schemas
+### 3. Available Schemas
 ID | Schema Name
 --- | ---
 1 | employee
@@ -40,7 +40,7 @@ ID | Schema Name
 
 
 
-### Authentication Routes
+### 4. Authentication Routes
 #### Link to access: http://restaskest-rest-api.herokuapp.com/
 Endpoint | Method | Purpose
 --- | --- | ---
