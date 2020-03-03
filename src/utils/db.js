@@ -5,7 +5,11 @@ dotenv.config()
 
 // Add useNewUrlParser and UnifiedTopolgy to prevent warning
 export const connect = (url = process.env.DB_CONNECTION, opts = {}) => {
-    mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology:true});
+    mongoose.connect(url, {
+        useNewUrlParser: true, 
+        useUnifiedTopology:true,
+        useCreateIndex: true
+    });
 
     const connection = mongoose.connection;
 

@@ -37,11 +37,14 @@ const managerSchema = new Schema({
         type: String,
         required: true
     },
-    restaurants: [Restaurant],
+    restaurants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Restaurant"
+    }],
     date:{
         type: Date,
         default: Date.now
     }
 })
 
-export default mongoose.model('manager', managerSchema)
+export const Manager = mongoose.model('manager', managerSchema)

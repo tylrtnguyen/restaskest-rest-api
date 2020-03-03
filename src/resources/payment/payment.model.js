@@ -35,4 +35,4 @@ let paymentSchema = new Schema({
     }
 })
 
-export default mongoose.model('payment', paymentSchema)
+export const Payment = mongoose.model('payment', paymentSchema)

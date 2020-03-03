@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _crud = require("../../utils/crud");
 
-var _schedule = require("./schedule.model");
+var _restaurant = require("./restaurant.model");
 
-exports.default = (0, _crud.crudControllers)(_schedule.Schedule);
+exports.default = (0, _crud.crudControllers)(_restaurant.Restaurant);

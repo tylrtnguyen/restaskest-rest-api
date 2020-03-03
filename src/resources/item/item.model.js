@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { material} from '../material/material.model'
 
 const Schema = mongoose.Schema
 
@@ -12,7 +11,10 @@ let itemSchema = new Schema({
         type: Number,
         required: true
     },
-    materials: [ material ]
+    materials: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Material"
+    }]
 })
 
-export default mongoose.model('item', itemSchema)
+export const Item = mongoose.model('item', itemSchema)

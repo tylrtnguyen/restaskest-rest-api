@@ -3,12 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Item = undefined;
 
 var _mongoose = require("mongoose");
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _material = require("../material/material.model");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,6 +21,10 @@ let itemSchema = new Schema({
     type: Number,
     required: true
   },
-  materials: [_material.material]
+  materials: [{
+    type: _mongoose2.default.Schema.Types.ObjectId,
+    ref: "Material"
+  }]
 });
-exports.default = _mongoose2.default.model('item', itemSchema);
+
+const Item = exports.Item = _mongoose2.default.model('item', itemSchema);

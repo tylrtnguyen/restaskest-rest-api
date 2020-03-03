@@ -3,14 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Station = undefined;
 
 var _mongoose = require("mongoose");
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _employee = require("../employee/employee.model");
-
-var _employee2 = _interopRequireDefault(_employee);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20,6 +17,10 @@ let stationSchema = new Schema({
     type: String,
     required: true
   },
-  employees: [_employee2.default]
+  employees: [{
+    type: _mongoose2.default.Schema.Types.ObjectId,
+    ref: 'Employee'
+  }]
 });
-exports.default = _mongoose2.default.model('station', stationSchema);
+
+const Station = exports.Station = _mongoose2.default.model('station', stationSchema);

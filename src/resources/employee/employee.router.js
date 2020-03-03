@@ -1,15 +1,15 @@
 import { Router } from 'express'
-import { controllers } from './employee.controller'
+import controllers from './employee.controllers'
 
 const router = Router()
 
-// /api/employee
+// @route: /api/employee
 router
   .route('/')
-  .get(controllers.getAllItems)
-  .post(controllers.addItem)
+      .get(controllers.getAllItems)
+      .post(controllers.addItem)
 
-// /api/employee/:id
+// @route: /api/employee/:id
 router
   .route('/:id')
   .get(controllers.getOneItem)

@@ -1,7 +1,4 @@
 import mongoose from 'mongoose'
-import manager from '../manager/manager.model'
-import inventory from '../inventory/inventory.model'
-import employee from '../employee/employee.model'
 
 const Schema = mongoose.Schema
 
@@ -17,10 +14,19 @@ let restaurantSchema = new Schema({
     phoneNumber: {
         type: String,
         required: true
-    },
-    managers:[ manager ],
-    employees:[ employee ],
-    inventory: [ inventory ]
+    },  
+    managers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Manager"
+    }],
+    employees:[  {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Employee"
+      } ],
+    inventory: [ {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Inventory"
+    } ]
 })
 
-export default mongoose.model('restaurant', restaurantSchema)
+export const Restaurant = mongoose.model('restaurant', restaurantSchema)

@@ -21,7 +21,8 @@ _dotenv2.default.config(); // Add useNewUrlParser and UnifiedTopolgy to prevent 
 const connect = exports.connect = (url = process.env.DB_CONNECTION, opts = {}) => {
   _mongoose2.default.connect(url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
   });
 
   const connection = _mongoose2.default.connection;

@@ -3,25 +3,24 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.crudControllers = exports.removeItem = exports.updateItem = exports.addItem = exports.getAllItems = exports.getOneItem = undefined;
-
-var _auth = require("./auth");
 
 // Get one item
 const getOneItem = exports.getOneItem = model => async (req, res) => {
   let id = req.params.id;
 
   try {
-    const item = await model.findById(id).lean().exec((error, item) => {
-      if (error) {
-        console.log(error);
-        res.status(400).end();
-      } else {
-        res.status(200).json(item);
-      }
-    });
-  } catch (e) {
-    console.log(e);
+    const item = await model.findOneById(id).lean().exec();
+
+    if (!item) {
+      res.status(400).end();
+    } else {
+      res.status(200).json({
+        success: true,
+        data: item
+      });
+    }
+  } catch (err) {
+    console.log(err);
     res.status(400).send('Failed to fetch item');
   }
 }; // Get all item
@@ -29,53 +28,78 @@ const getOneItem = exports.getOneItem = model => async (req, res) => {
 
 const getAllItems = exports.getAllItems = model => async (req, res) => {
   try {
-    const items = await model.find().lean().exec((error, items) => {
-      if (error) {
-        console.log(error);
-        res.status(400).end();
-      } else {
-        res.status(200).json(items);
-      }
+    const items = await model.find().lean().exec();
+
+    if (!items) {
+      res.status(400).end();
+    }
+
+    res.status(200).json({
+      success: true,
+      count: items.length,
+      data: items
     });
-  } catch (e) {
-    res.status(400).send("Failed to fetch items");
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map(val => val.message);
+      return res.status(400).json({
+        success: false,
+        error: messages
+      });
+    } else {
+      return res.status(500).json({
+        success: false,
+        error: 'Server Error'
+      });
+    }
   }
 }; // add Item
 
 
 const addItem = exports.addItem = model => async (req, res) => {
-  let item_to_add;
-
-  if (model === employee || model === admin) {
-    await (0, _auth.register)();
-  }
-
   try {
-    const item = await item_to_add.save();
-    res.status(201).json(item);
-  } catch (e) {
-    console.log(e);
-    res.status(400).send("Failed to add new item");
+    const item = await model.create(req.body);
+    res.status(201).json({
+      success: true,
+      data: item
+    });
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map(val => val.message);
+      return res.status(400).json({
+        success: false,
+        error: messages
+      });
+    } else {
+      return res.status(500).json({
+        success: false,
+        error: 'Server Error'
+      });
+    }
   }
 }; // Update item
 
 
 const updateItem = exports.updateItem = model => async (req, res) => {
   try {
-    // findOneAndUpdate(filter, update)
     const updatedItem = await model.findOneAndUpdate({
       _id: req.params.id
-    }, req.body, {
+    }, req.body, // Add item to database if item does not exist
+    {
       new: true
-    }).lean().exec(item => {
-      if (!item) {
-        return next(new Error('Could not load document'));
-      }
+    }).lean().exec();
+
+    if (!updatedItem) {
+      return res.status(401).send("Not updated");
+    }
+
+    res.status(200).json({
+      success: true,
+      data: updatedItem
     });
-    res.status(200).json(updatedItem);
-  } catch (e) {
-    console.log(e);
-    res.status(400).send("Failed to upload item");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Failed to update item");
   }
 }; // Remove item
 // findOneAndRemove()
@@ -91,7 +115,10 @@ const removeItem = exports.removeItem = model => async (req, res) => {
       res.status(400).send("Failed to remove item");
     }
 
-    res.status(200).json(removedItem);
+    res.status(200).json({
+      success: true,
+      message: "Successfully removed item"
+    });
   } catch (e) {
     console.log(e);
     res.status(400).end();

@@ -18,4 +18,4 @@ let materialSchema = new Schema({
     }
 })
 
-export default mongoose.model('material', materialSchema)
+export const Material =  mongoose.model('material', materialSchema)

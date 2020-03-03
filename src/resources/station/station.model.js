@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import employee from '../employee/employee.model'
 
 const Schema = mongoose.Schema
 
@@ -8,7 +7,13 @@ let stationSchema = new Schema({
         type: String,
         required: true
     },
-    employees: [employee]
+    employees: 
+    [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Employee'
+        }
+    ]
 })
 
-export default mongoose.model('station', stationSchema)
+export const Station = mongoose.model('station', stationSchema)

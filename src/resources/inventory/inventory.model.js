@@ -1,12 +1,16 @@
 import mongoose from 'mongoose'
-import {  materialSchema } from '../material/material.model'
 
 const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema({
-    materials:[ materialSchema ],
+    materials:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Material"
+      } ],
     lastUpdate: {
         type: Date,
         default: Date.now
     },
 })
+
+export const Inventory = mongoose.model('inventory', inventorySchema)

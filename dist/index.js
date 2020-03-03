@@ -27,6 +27,46 @@ var _user = require("./resources/user/user.router");
 
 var _user2 = _interopRequireDefault(_user);
 
+var _schedule = require("./resources/schedule/schedule.router");
+
+var _schedule2 = _interopRequireDefault(_schedule);
+
+var _inventory = require("./resources/inventory/inventory.router");
+
+var _inventory2 = _interopRequireDefault(_inventory);
+
+var _order = require("./resources/order/order.router");
+
+var _order2 = _interopRequireDefault(_order);
+
+var _employee = require("./resources/employee/employee.router");
+
+var _employee2 = _interopRequireDefault(_employee);
+
+var _item = require("./resources/item/item.router");
+
+var _item2 = _interopRequireDefault(_item);
+
+var _restaurant = require("./resources/restaurant/restaurant.router");
+
+var _restaurant2 = _interopRequireDefault(_restaurant);
+
+var _manager = require("./resources/manager/manager.router");
+
+var _manager2 = _interopRequireDefault(_manager);
+
+var _material = require("./resources/material/material.router");
+
+var _material2 = _interopRequireDefault(_material);
+
+var _payment = require("./resources/payment/payment.router");
+
+var _payment2 = _interopRequireDefault(_payment);
+
+var _station = require("./resources/station/station.router");
+
+var _station2 = _interopRequireDefault(_station);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // jshint: es6
@@ -50,12 +90,22 @@ app.post('/login', _auth.login); // API Routes
 
 app.use('/api', _auth.protect);
 app.use('/api/user', _user2.default);
+app.use('/api/inventory', _inventory2.default);
+app.use('/api/schedule', _schedule2.default);
+app.use('/api/order', _order2.default);
+app.use('/api/employee', _employee2.default);
+app.use('/api/item', _item2.default);
+app.use('/api/manager', _manager2.default);
+app.use('/api/material', _material2.default);
+app.use('/api/payment', _payment2.default);
+app.use('/api/restaurant', _restaurant2.default);
+app.use('/api/station', _station2.default);
 
 const start = exports.start = async () => {
   try {
     await (0, _db.connect)();
     app.listen(port, () => {
-      console.log(`REST API on http://localhost:${port}/api`);
+      console.log(`REST API on http://localhost:${port}`);
     });
   } catch (e) {
     console.error(e);

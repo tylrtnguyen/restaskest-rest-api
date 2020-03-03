@@ -86,23 +86,21 @@ export const login = async (req, res) => {
 
 
 export const protect = async (req, res, next) => {
-    const bearer = req.headers.authorization
+    const bearer = req.headers.authorization;
 
-    if(!bearer || !bearer.startsWith('Bearer ')) {
-        return res.status(401).send("Not authorized")
+    if (!bearer || !bearer.startsWith("Bearer ")) {
+      return res.status(401).end();
     }
-
-    const token = bearer.split(" ")[1]
-
-    let payload
+  
+    const token = bearer.split("Bearer ")[1].trim();
+    let payload;
     try {
-        payload = await verifyToken(token)
+      payload = await verifyToken(token);
+    } catch (e) {
+      return res.status(401).end();
     }
-    catch (e) {
-        return res.status(401).send("Invalid token")
-    }
-
-    req.user = payload
-    next()
-}
+  
+    req.user = payload;
+    next();
+};
 

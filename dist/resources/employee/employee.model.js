@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Employee = undefined;
 
 var _mongoose = require("mongoose");
 
@@ -33,21 +34,20 @@ const employeeSchema = new Schema({
     type: Number
   },
   JoinDate: {
-    type: String
+    type: String,
+    default: Date.now
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: [true, "Email is already taken"],
     max: 255
   },
   password: {
     type: String,
-    required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now
+    required: true,
+    min: 8
   }
 });
-exports.default = _mongoose2.default.model('employee', employeeSchema);
+
+const Employee = exports.Employee = _mongoose2.default.model('employee', employeeSchema);

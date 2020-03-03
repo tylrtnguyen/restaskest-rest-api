@@ -1,15 +1,15 @@
 import { Router } from 'express'
-import { controllers } from './admin.controller'
+import { controllers } from './admin.controllers'
 
 const router = Router()
 
-// /api/manager
+// @route: /api/manager
 router
   .route('/')
   .get(controllers.getAllItems)
   .post(controllers.addItem)
 
-// /api/manager/:id
+//@route: /api/manager/:id
 router
   .route('/:id')
   .get(controllers.getOneItem)

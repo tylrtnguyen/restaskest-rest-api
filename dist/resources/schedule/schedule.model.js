@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Schedule = undefined;
 
 var _mongoose = require("mongoose");
 
@@ -30,12 +31,18 @@ let scheduleSchema = new Schema({
       required: true
     },
     inHour: {
-      type: Number
+      type: Number,
+      required: true
     },
     outHour: {
-      type: Number
+      type: Number,
+      required: true
     }
   }],
-  employee: [_employee2.default]
+  employee: {
+    type: _mongoose2.default.Schema.Types.ObjectId,
+    ref: 'Employee'
+  }
 });
-exports.default = _mongoose2.default.model('schedule', scheduleSchema);
+
+const Schedule = exports.Schedule = _mongoose2.default.model('schedule', scheduleSchema);

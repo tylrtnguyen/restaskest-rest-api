@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Material = undefined;
 
 var _mongoose = require("mongoose");
 
@@ -26,4 +27,5 @@ let materialSchema = new Schema({
     required: true
   }
 });
-exports.default = _mongoose2.default.model('material', materialSchema);
+
+const Material = exports.Material = _mongoose2.default.model('material', materialSchema);

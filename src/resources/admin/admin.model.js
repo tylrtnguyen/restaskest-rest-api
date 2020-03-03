@@ -6,17 +6,15 @@ const adminSchema = new Schema(
     {
         name: {
             type: String,
-            required: true,
-            min: 8
+            required: [true, "Name cannot be blank"]
         },
         role: {
             type: String,
-            required: true,
-            min: 8
+            required: [true, "Role is required"],
         },
         password: {
             type: String,
-            required: true,
+            required: [true, "Password is required"],
             min: 8
         }
     }

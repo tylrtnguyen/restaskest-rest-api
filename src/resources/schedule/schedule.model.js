@@ -19,14 +19,19 @@ let scheduleSchema = new Schema({
                 required: true
             },
             inHour: {
-                type: Number
+                type: Number,
+                required: true
             },
             outHour: {
-                type: Number
+                type: Number,
+                required: true
             }
         }
     ],
-    employee: [employee]
+    employee: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Employee'
+    }
 })
 
-export default mongoose.model('schedule', scheduleSchema)
+export const Schedule = mongoose.model('schedule', scheduleSchema)

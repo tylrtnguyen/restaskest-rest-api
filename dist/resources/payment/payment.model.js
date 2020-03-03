@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Payment = undefined;
 
 var _mongoose = require("mongoose");
 
@@ -43,4 +44,5 @@ let paymentSchema = new Schema({
     required: true
   }
 });
-exports.default = _mongoose2.default.model('payment', paymentSchema);
+
+const Payment = exports.Payment = _mongoose2.default.model('payment', paymentSchema);

@@ -5,8 +5,14 @@ import { employee } from '../employee/employee.model'
 const Schema = mongoose.Schema
 
 let orderSchema = new Schema({
-    items: [item],
-    employee: [employee],
+    items: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Item"
+    }],
+    employee: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Employee"
+    }],
     numOfItem: {
         type: Number,
         required: true
@@ -17,4 +23,4 @@ let orderSchema = new Schema({
     }
 })
 
-export default mongoose.model('order', orderSchema)
+export const Order = mongoose.model('order', orderSchema)

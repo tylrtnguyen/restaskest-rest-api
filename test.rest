@@ -5,7 +5,3 @@ content-type: application/json
     "name": "sample",
     "time": "Wed, 21 Oct 2015 18:27:50 GMT"
 }
-###
-GET http://restaskest-rest-api.herokuapp.com/api/user
-Content-Type: application/json
-Authorization: Bearer your_token_here

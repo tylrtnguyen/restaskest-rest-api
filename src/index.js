@@ -6,7 +6,16 @@ import cors from 'cors'
 import { register, login, protect } from './utils/auth'
 import { connect } from './utils/db'
 import userRouter from './resources/user/user.router'
+import scheduleRouter from './resources/schedule/schedule.router'
+import inventoryRouter from './resources/inventory/inventory.router'
+import orderRouter from './resources/order/order.router'
+import employeeRouter from './resources/employee/employee.router'
+import itemRouter from './resources/item/item.router'
+import restaurantRouter from './resources/restaurant/restaurant.router'
 import managerRouter from './resources/manager/manager.router'
+import materialRouter from './resources/material/material.router'
+import paymentRouter from './resources/payment/payment.router'
+import stationRouter from './resources/station/station.router'
 
 
 const app = express();
@@ -30,8 +39,18 @@ app.post('/register', register);
 app.post('/login', login);
 
 // API Routes
-app.use('/api', protect)
-app.use('/api/user', userRouter)
+app.use('/api', protect);
+app.use('/api/user', userRouter) ; 
+app.use('/api/inventory', inventoryRouter);
+app.use('/api/schedule', scheduleRouter);
+app.use('/api/order', orderRouter);
+app.use('/api/employee', employeeRouter);
+app.use('/api/item', itemRouter);
+app.use('/api/manager', managerRouter);
+app.use('/api/material', materialRouter);
+app.use('/api/payment', paymentRouter)
+app.use('/api/restaurant', restaurantRouter)
+app.use('/api/station', stationRouter)
 
 
 export const start = async () => {

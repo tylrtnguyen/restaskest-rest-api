@@ -24,22 +24,20 @@ const employeeSchema = new Schema({
         type:Number
     },
     JoinDate:{
-        type: String
+        type: String,
+        default: Date.now
     },
     email:{
         type: String,
         required: true,
-        unique:true,
+        unique: [true, "Email is already taken"],
         max:255
     },
     password:{
         type: String,
-        required: true
-    },
-    date:{
-        type: Date,
-        default: Date.now
+        required: true,
+        min: 8
     }
 })
 
-export default mongoose.model('employee', employeeSchema)
+export const Employee = mongoose.model('employee', employeeSchema)

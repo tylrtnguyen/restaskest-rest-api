@@ -5,7 +5,7 @@ read folder
 
 cd ./${folder}
 touch "${folder}.model.js"
-touch "${folder}.controller.js"
+touch "${folder}.controllers.js"
 touch "${folder}.router.js"
 
 ls -a

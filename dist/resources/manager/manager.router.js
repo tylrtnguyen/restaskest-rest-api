@@ -6,11 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = require("express");
 
-var _manager = require("./manager.controller");
+var _manager = require("./manager.controllers");
 
-const router = (0, _express.Router)(); // /api/manager
+var _manager2 = _interopRequireDefault(_manager);
 
-router.route('/').get(_manager.controllers.getAllItems).post(_manager.controllers.addItem); // /api/manager/:id
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-router.route('/:id').get(_manager.controllers.getOneItem).put(_manager.controllers.updateItem).delete(_manager.controllers.removeItem);
+const router = (0, _express.Router)(); // @route /api/manager
+
+router.route('/').get(_manager2.default.getAllItems).post(_manager2.default.addItem); // @route /api/manager/:id
+
+router.route('/:id').get(_manager2.default.getOneItem).put(_manager2.default.updateItem).delete(_manager2.default.removeItem);
 exports.default = router;

@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Manager = undefined;
 
 var _mongoose = require("mongoose");
 
@@ -47,10 +48,14 @@ const managerSchema = new Schema({
     type: String,
     required: true
   },
-  restaurants: [_restaurant.Restaurant],
+  restaurants: [{
+    type: _mongoose2.default.Schema.Types.ObjectId,
+    ref: "Restaurant"
+  }],
   date: {
     type: Date,
     default: Date.now
   }
 });
-exports.default = _mongoose2.default.model('manager', managerSchema);
+
+const Manager = exports.Manager = _mongoose2.default.model('manager', managerSchema);
