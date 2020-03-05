@@ -17,8 +17,7 @@ const employeeSchema = new Schema({
         type: String
     },
     DOB:{
-        type: String,
-        min: 8
+        type: String
     },
     wages:{
         type:Number

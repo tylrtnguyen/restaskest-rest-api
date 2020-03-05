@@ -1,7 +1,18 @@
-POST http://localhost:5000/api/login HTTP/1.1
+GET https://restaskest-rest-api.herokuapp.com/api/employee HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDRiNzRlZWI4N2IwM2NjODYwZWE5MiIsImlhdCI6MTU4MzI2OTA0NSwiZXhwIjoxNTgzMjcyNjQ1fQ.9Yx_elM1_W9eAvs8kigbCyZLmvp6CKFMuGwnZz9HBHQ
+
+###
+POST https://restaskest-rest-api.herokuapp.com/api/employee HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNDRiNzRlZWI4N2IwM2NjODYwZWE5MiIsImlhdCI6MTU4MzI2OTA0NSwiZXhwIjoxNTgzMjcyNjQ1fQ.9Yx_elM1_W9eAvs8kigbCyZLmvp6CKFMuGwnZz9HBHQ
 
 {
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+    "fName": "Thanh",
+    "lName": "Quan",
+    "address": "189 Cahlkfarm ",
+    "DOB": "16/01/1999",
+    "wages": 14,
+    "JoinDate": "First of the month",
+    "email": "quantrithanh2005@gmail.com",
+    "password": "SomeShit"
 }
