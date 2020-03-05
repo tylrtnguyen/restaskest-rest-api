@@ -41,7 +41,7 @@ ID | Schema Name
 
 
 ### 4. Authentication Routes
-#### Link to access: http://restaskest-rest-api.herokuapp.com/
+#### Link to access: http://restaskest-api.herokuapp.com/
 Endpoint | Method | Purpose
 --- | --- | ---
 /register | POST | Add a new user (JSON format {name, email, password} )
