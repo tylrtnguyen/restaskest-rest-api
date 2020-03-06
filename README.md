@@ -11,7 +11,7 @@
 #### Request example
 ![Request Image](./assets/request.png)
 
-#### Output
+#### Output for request
 ![Output Image](./assets/output.png)
 
 ### 2. API Endpoint
