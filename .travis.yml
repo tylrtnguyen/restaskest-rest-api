@@ -1,17 +1,19 @@
 language: node_js
 node_js:
-    - "stable"
+- stable
 cache:
-    directories:
-        - node_modules
+  directories:
+  - node_modules
 before_install:
-    - "npm config set spin false"
+- npm config set spin false
 install:
-    - npm install
+- npm install
 script:
-    - npm run build
+- npm run build
 deploy:
-    provider: heroku
-    api_key:
-        secure: 2f45f1d5-af0d-42d1-a96d-eea07db35e49
-    app: restaskest-api
+  provider: heroku
+  api_key:
+    secure: QMhCBCOir05PNa4MRFXKA1n+HdYSyfoxb3qudlJOJ2jkVudt5BM1AYkh86StVR+uIKfB8NSXzsPSHcaPM19Of68gqwsnkifzcxntsWqFw83jLMWXHj0EWG1dRgh6+7aL9kVzexiekl5xBVcp/07eAzVoFSMvpS4iqqOs93CQtif2gNc67ClZfDyY8KgRlDf+KAPOYDpVW7LrIOnpiWigzel3InZe8RAim8C8VRejAziP9vYA7tCPCKXEOl9f4SEA0H9aH/0gs4OPF/6YCz55bk974fHXunCRplmBEsHVvPqjeqxMW7PGh4DrBmEtJMLOnUI98blA0UzIvOCglk7R37LlU4oI6Q+abF/aOaFXZH6dqXzxP0ywsMSlRNEhpbhHxipxmXZjcio0Kgyin03KAkbMDkquyy9n6MCI3fFXvKFIQiPYslul0VON6Y8yIxq3ZS0Ihsxt6l07+NwTcaz4mcokv3Y88+3Pa6W8qlM4dyZW7o4QoJeqx5T9LsE5uPlgaNrduzMkd6zAAlXRIYXc3IW/ifQItg2PkbFIvij5V0shVm7+cFsNwJmFOqi15wz6j7pzLgJ1G/wLpXGxeueyjhdS7d9Oe8ppqZn949IMdQ/lyo4pV9BQkN+0IICOqkrNc0pEx5+jC7l6gxvoiPlmHfbiHZU9pJhikgP0u85/48s=
+  app: restaskest-api
+  on:
+    repo: tylrtnguyen/restaskest-rest-api
