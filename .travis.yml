@@ -10,3 +10,7 @@ install:
     - npm install
 script:
     - npm run build
+deploy:
+    - provider: heroku
+    - api_key: $HEROKU_TOKEN
+    - app: restaskest-api
