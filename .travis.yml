@@ -13,5 +13,5 @@ script:
 deploy:
     provider: heroku
     api_key:
-        secure: a1ec4e34-2166-4061-886a-1b5b455223e8
+        secure: 2f45f1d5-af0d-42d1-a96d-eea07db35e49
     app: restaskest-api
