@@ -3,6 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.crudControllers = exports.removeItem = exports.updateItem = exports.addItem = exports.getAllItems = exports.getOneItem = undefined;
+
+var _bcrypt = require("bcrypt");
+
+var _bcrypt2 = _interopRequireDefault(_bcrypt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Get one item
 const getOneItem = exports.getOneItem = model => async (req, res) => {
@@ -58,6 +65,18 @@ const getAllItems = exports.getAllItems = model => async (req, res) => {
 
 const addItem = exports.addItem = model => async (req, res) => {
   try {
+    // Implement the hashing and salting for Manager or Employee password
+    if (req.body.password) {
+      // Password modification section
+      // 1. Salt and hash password
+      // Salt
+      const salt = await _bcrypt2.default.genSalt(10); // Hash
+
+      const hashPassword = await _bcrypt2.default.hash(req.body.password, salt);
+      req.body.password = hashPassword;
+    } // Add that new item to the DB
+
+
     const item = await model.create(req.body);
     res.status(201).json({
       success: true,
@@ -66,11 +85,13 @@ const addItem = exports.addItem = model => async (req, res) => {
   } catch (err) {
     if (err.name === 'ValidationError') {
       const messages = Object.values(err.errors).map(val => val.message);
+      console.log(err);
       return res.status(400).json({
         success: false,
         error: messages
       });
     } else {
+      console.log(err);
       return res.status(500).json({
         success: false,
         error: 'Server Error'

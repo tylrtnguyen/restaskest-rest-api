@@ -14,16 +14,27 @@
 ![Output Image](./assets/output.png)
 
 ### 2. API Endpoint
-#### API URL: http://restaskest-rest-api.herokuapp.com/api
-Endpoint | Method | Purpose
---- | --- | ---
-/schema_name | GET | List all
-/schema_name | POST | Add
-/schema_name/:id | GET | Find with ID
-/schema_name/:id | PUT | Update
-/schema_name/:id | DELETE | Delete
+#### API URL: http://restaskest-api.herokuapp.com/api
+Endpoint | Method | Purpose | Accessibility
+--- | --- | --- | ---
+/schema_name | GET | List all | Private
+/schema_name | POST | Add | Private
+/schema_name/:id | GET | Find with ID | Private
+/schema_name/:id | PUT | Update | Private
+/schema_name/:id | DELETE | Delete | Private
 
-### 3. Available Schemas
+### 3. API Authentication Endpoint
+#### API URL: http://restaskest-api.herokuapp.com/
+#### Notes: Employees cannot signup by themselves, they can only be added by their manager/owner
+Endpoint | Method | Purpose | Accessibility
+--- | --- | --- | ---
+/register | POST | Add new manager/owner | Public
+/login | POST | Admin login | Public
+/login/manager | POST | Manager Login | Public
+/login/employee | POST | Employee Login | Public
+
+
+### 4. Available Schemas
 ID | Schema Name
 --- | ---
 1 | employee

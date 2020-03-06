@@ -9,6 +9,14 @@ var _mongoose = require("mongoose");
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
+var _moment = require("moment");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _mongooseUniqueValidator = require("mongoose-unique-validator");
+
+var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Schema = _mongoose2.default.Schema;
@@ -34,12 +42,12 @@ const employeeSchema = new Schema({
   },
   JoinDate: {
     type: String,
-    default: Date.now
+    default: (0, _moment2.default)().format('ll')
   },
   email: {
     type: String,
     required: true,
-    unique: [true, "Email is already taken"],
+    unique: true,
     max: 255
   },
   password: {
@@ -47,6 +55,9 @@ const employeeSchema = new Schema({
     required: true,
     min: 8
   }
+});
+employeeSchema.plugin(_mongooseUniqueValidator2.default, {
+  message: 'Email is already taken'
 });
 
 const Employee = exports.Employee = _mongoose2.default.model('employee', employeeSchema);

@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 // Get one item
 export const getOneItem = model => async (req, res) => {
     let id = req.params.id
@@ -56,6 +58,17 @@ export const getAllItems = model => async (req, res) => {
 // add Item
 export const addItem = model => async (req, res) => {    
     try {
+        // Implement the hashing and salting for Manager or Employee password
+        if(req.body.password){
+            // Password modification section
+            // 1. Salt and hash password
+            // Salt
+            const salt = await bcrypt.genSalt(10);
+            // Hash
+            const hashPassword = await bcrypt.hash(req.body.password, salt)
+            req.body.password = hashPassword
+        }
+        // Add that new item to the DB
         const item = await model.create(req.body)
         res.status(201).json({
             success: true,
@@ -65,13 +78,14 @@ export const addItem = model => async (req, res) => {
     catch (err) {
         if(err.name === 'ValidationError') {
             const messages = Object.values(err.errors).map(val => val.message);
-
+            console.log(err)
             return res.status(400).json({
                 success: false,
                 error: messages
             })
         }
         else {
+            console.log(err)
             return res.status(500).json({
                 success: false,
                 error: 'Server Error'

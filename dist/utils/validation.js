@@ -8,7 +8,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const registerValidation = userInput => {
   const schema = _joi2.default.object({
-    name: _joi2.default.string().min(6).required(),
+    fName: _joi2.default.string().required(),
+    lName: _joi2.default.string().required(),
+    address: _joi2.default.string(),
+    DOB: _joi2.default.string().required(),
+    salary: _joi2.default.number(),
     email: _joi2.default.string().min(8).required().email(),
     password: _joi2.default.string().min(8).required()
   });

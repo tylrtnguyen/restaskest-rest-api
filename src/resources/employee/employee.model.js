@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import moment from 'moment'
+import uniqueValidator from 'mongoose-unique-validator'
+
 
 const Schema = mongoose.Schema
 
@@ -24,12 +27,12 @@ const employeeSchema = new Schema({
     },
     JoinDate:{
         type: String,
-        default: Date.now
+        default: moment().format('ll')
     },
     email:{
         type: String,
         required: true,
-        unique: [true, "Email is already taken"],
+        unique: true,
         max:255
     },
     password:{
@@ -38,5 +41,7 @@ const employeeSchema = new Schema({
         min: 8
     }
 })
+
+employeeSchema.plugin(uniqueValidator, { message: 'Email is already taken' })
 
 export const Employee = mongoose.model('employee', employeeSchema)

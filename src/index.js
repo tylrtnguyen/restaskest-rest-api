@@ -3,7 +3,8 @@ import express from 'express'
 import {  json, urlencoded } from 'body-parser'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { register, login, protect } from './utils/auth'
+import { register, login, protect, 
+        managerLogin, employeeLogin } from './utils/auth'
 import { connect } from './utils/db'
 import userRouter from './resources/user/user.router'
 import scheduleRouter from './resources/schedule/schedule.router'
@@ -35,8 +36,12 @@ app.get('/', (req, res) => {
 })
 
 // Authentication routes
+// Register route is the private used to 
+// add new Admin Account in to the app
 app.post('/register', register);
 app.post('/login', login);
+app.post('/login/manager', managerLogin)
+app.post('/login/employee', employeeLogin)
 
 // API Routes
 app.use('/api', protect);

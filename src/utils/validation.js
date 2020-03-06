@@ -2,7 +2,11 @@ import Joi from '@hapi/joi'
 
 const registerValidation = (userInput) => {
     const schema = Joi.object({
-        name: Joi.string().min(6).required(),
+        fName: Joi.string().required(),
+        lName: Joi.string().required(),
+        address: Joi.string(),
+        DOB: Joi.string().required(),
+        salary: Joi.number(),
         email: Joi.string().min(8).required().email(),
         password: Joi.string().min(8).required()
     });

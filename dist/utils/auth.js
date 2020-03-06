@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.protect = exports.login = exports.register = exports.verifyToken = exports.newToken = undefined;
+exports.protect = exports.employeeLogin = exports.managerLogin = exports.login = exports.register = exports.verifyToken = exports.newToken = undefined;
 
 var _jsonwebtoken = require("jsonwebtoken");
 
@@ -14,6 +14,10 @@ var _dotenv = require("dotenv");
 var _dotenv2 = _interopRequireDefault(_dotenv);
 
 var _user = require("../resources/user/user.model");
+
+var _manager = require("../resources/manager/manager.model");
+
+var _employee = require("../resources/employee/employee.model");
 
 var _validation = require("./validation");
 
@@ -48,28 +52,41 @@ const register = exports.register = async (req, res) => {
     error
   } = (0, _validation.registerValidation)(req.body); // If error
 
-  if (error) return res.status(400).send(error.details[0]); // Password modification section
+  if (error) {
+    console.log(error);
+    return res.status(400).send(error.details[0]);
+  } // Password modification section
   // 1. Salt and hash password
   // Salt
 
+
   const salt = await _bcrypt2.default.genSalt(10); // Hash
 
-  const hashPassword = await _bcrypt2.default.hash(req.body.password, salt); // Create a new user
+  const hashPassword = await _bcrypt2.default.hash(req.body.password, salt); // Assign the given password with hashPassword
 
-  const user = new _user.User({
-    name: req.body.name,
-    email: req.body.email,
-    password: hashPassword
-  }); // Creating new user
+  req.body.password = hashPassword; // Creating new user
 
   try {
-    const savedUser = await user.save();
+    const savedManager = await _manager.Manager.create(req.body);
     res.status(201).json({
-      message: `Admin ${savedUser.name} is already saved`
+      success: true,
+      data: savedManager
     });
-  } catch (e) {
-    console.log(e);
-    res.status(400).send(err);
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map(val => val.message);
+      console.log(err);
+      return res.status(400).json({
+        success: false,
+        error: messages
+      });
+    } else {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        error: 'Server Error'
+      });
+    }
   }
 }; // Login 
 
@@ -101,6 +118,76 @@ const login = exports.login = async (req, res) => {
   }
 
   const token = newToken(user);
+  res.status(200).json({
+    token: token,
+    expiresIn: '3600s',
+    status: 'Logged In'
+  });
+}; // Manager Login 
+
+
+const managerLogin = exports.managerLogin = async (req, res) => {
+  const {
+    error
+  } = (0, _validation.loginValidation)(req.body);
+
+  if (error) {
+    return res.status(400).send(error.details[0]);
+  } // Check if the user exists using email
+
+
+  const managerData = req.body;
+  const manager = await _manager.Manager.findOne({
+    email: managerData.email
+  }).select('email password').exec();
+
+  if (!manager) {
+    return res.status(401).send("Email or password is invalid");
+  } // Check if the password correct
+
+
+  const passwordCorrect = await _bcrypt2.default.compare(managerData.password, manager.password);
+
+  if (!passwordCorrect) {
+    return res.status(400).send("Invalid credentials");
+  }
+
+  const token = newToken(manager);
+  res.status(200).json({
+    token: token,
+    expiresIn: '3600s',
+    status: 'Logged In'
+  });
+}; // Employee Login 
+
+
+const employeeLogin = exports.employeeLogin = async (req, res) => {
+  const {
+    error
+  } = (0, _validation.loginValidation)(req.body);
+
+  if (error) {
+    return res.status(400).send(error.details[0]);
+  } // Check if the user exists using email
+
+
+  const employeeData = req.body;
+  const employee = await _employee.Employee.findOne({
+    email: employeeData.email
+  }).select('email password').exec();
+
+  if (!employee) {
+    return res.status(401).send("Email or password is invalid");
+  } // Check if the password correct
+
+
+  const passwordCorrect = await _bcrypt2.default.compare(employeeData.password, employee.password);
+
+  if (!passwordCorrect) {
+    return res.status(400).send("Invalid credentials");
+  }
+
+  const token = newToken(employee);
   res.status(200).json({
     token: token,
     expiresIn: '3600s',

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
-import { Restaurant } from '../restaurant/restaurant.model'
+import moment from 'moment'
+import uniqueValidator from 'mongoose-unique-validator'
 
 const Schema = mongoose.Schema
 
@@ -25,7 +26,8 @@ const managerSchema = new Schema({
         type:Number
     },
     JoinDate:{
-        type: String
+        type: String,
+        default: moment().format('ll')
     },
     email:{
         type: String,
@@ -46,5 +48,7 @@ const managerSchema = new Schema({
         default: Date.now
     }
 })
+
+managerSchema.plugin(uniqueValidator, { message: 'Email is already taken'})
 
 export const Manager = mongoose.model('manager', managerSchema)

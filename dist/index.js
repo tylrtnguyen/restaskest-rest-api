@@ -84,9 +84,13 @@ app.use(_express2.default.static(__dirname + "/public"));
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/index.html");
 }); // Authentication routes
+// Register route is the private used to 
+// add new Admin Account in to the app
 
 app.post('/register', _auth.register);
-app.post('/login', _auth.login); // API Routes
+app.post('/login', _auth.login);
+app.post('/login/manager', _auth.managerLogin);
+app.post('/login/employee', _auth.employeeLogin); // API Routes
 
 app.use('/api', _auth.protect);
 app.use('/api/user', _user2.default);
