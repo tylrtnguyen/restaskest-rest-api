@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/tylrtnguyen/restaskest-rest-api.svg?branch=master)](https://travis-ci.com/tylrtnguyen/restaskest-rest-api)
 # REST api with MongoDB, Node, and Express
 
 <hr>
