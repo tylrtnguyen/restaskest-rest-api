@@ -93,7 +93,7 @@ export const login = async (req, res) => {
     const token = newToken(user);
     res.status(200).json({
         token:token,
-        expiresIn: '3600s',
+        expiresIn: '3600',
         status: 'Logged In'
     })
 }
@@ -124,7 +124,7 @@ export const managerLogin = async (req, res) => {
     const token = newToken(manager);
     res.status(200).json({
         token:token,
-        expiresIn: '3600s',
+        expiresIn: '3600',
         status: 'Logged In'
     })
 }
@@ -155,7 +155,7 @@ export const employeeLogin = async (req, res) => {
     const token = newToken(employee);
     res.status(200).json({
         token:token,
-        expiresIn: '3600s',
+        expiresIn: '3600',
         status: 'Logged In'
     })
 }
