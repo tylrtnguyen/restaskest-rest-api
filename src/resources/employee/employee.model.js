@@ -16,11 +16,18 @@ const employeeSchema = new Schema({
         required: true,
         max: 255
     },
+    gender: {
+        type: String,
+        required: true
+    },
     address:{
         type: String
     },
     DOB:{
         type: String
+    },
+    isPermanent: {
+        type: Boolean
     },
     wages:{
         type:Number
