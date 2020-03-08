@@ -4,9 +4,9 @@ const registerValidation = (userInput) => {
     const schema = Joi.object({
         fName: Joi.string().required(),
         lName: Joi.string().required(),
-        address: Joi.string(),
-        DOB: Joi.string().required(),
-        salary: Joi.number(),
+        restaurantName: Joi.string().required(),
+        restaurantAddress: Joi.string().required(),
+        pos: Joi.string().required(),
         email: Joi.string().min(8).required().email(),
         password: Joi.string().min(8).required()
     });

@@ -11,10 +11,10 @@ let restaurantSchema = new Schema({
         type: String,
         required: true
     },
-    phoneNumber: {
+    pos: {
         type: String,
         required: true
-    },  
+    },
     managers:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Manager"
@@ -22,11 +22,11 @@ let restaurantSchema = new Schema({
     employees:[  {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Employee"
-      } ],
-    inventory: [ {
+    }],
+    inventory: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Inventory"
-    } ]
+    }
 })
 
 export const Restaurant = mongoose.model('restaurant', restaurantSchema)

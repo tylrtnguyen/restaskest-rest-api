@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { User } from '../resources/user/user.model';
-import { Manager } from '../resources/manager/manager.model'
-import { Employee } from '../resources/employee/employee.model'
+import { Manager } from '../resources/manager/manager.model';
+import { Employee } from '../resources/employee/employee.model';
+import { Restaurant } from '../resources/restaurant/restaurant.model';
 import {registerValidation, loginValidation } from './validation';
 import bcrypt from 'bcrypt';
 
@@ -13,14 +14,6 @@ export const newToken = user => {
     return jwt.sign({id: user._id}, process.env.TOKEN, {expiresIn: '1h' })
 }
 
-export const verifyToken = token => {
-    new Promise((resolve, reject) => {
-        jwt.verify(token, process.env.TOKEN, (err, payload) => {
-            if(err) return reject(err)
-            resolve(payload)
-        })
-    })
-}
 
 export const register =  async (req, res) => {
     // Pass user input to validate with Joi
@@ -38,12 +31,29 @@ export const register =  async (req, res) => {
     // Hash
     const hashPassword = await bcrypt.hash(req.body.password, salt)
 
-    // Assign the given password with hashPassword
-    req.body.password = hashPassword;
-
     // Creating new user
     try {
-        const savedManager = await Manager.create(req.body);
+        const newRestaurant = new Restaurant({
+            name: req.body.restaurantName,
+            address: req.body.restaurantAddress,
+            pos: req.body.pos
+        })
+        const savedRestaurant = await Restaurant.create(newRestaurant);
+        if(!savedRestaurant){
+            return res.status(400).json({
+                success: false,
+                message: "Failed to create restaurant"
+            })
+        }
+
+        const newManager = new Manager({
+            fName: req.body.fName,
+            lName: req.body.lName,
+            email: req.body.email,
+            password: hashPassword,
+            restaurants: savedRestaurant._id
+        })
+        const savedManager = await Manager.create(newManager);
         res.status(201).json({
            success: true,
            data: savedManager
@@ -80,21 +90,28 @@ export const login = async (req, res) => {
     const user = await User.findOne({email: userData.email}).select('email password')
                     .exec()
     if(!user) {
-        return res.status(401).send("Email or password is invalid")
+        return res.status(401).json({
+            success: false,
+            message: "Email or password is invalid"
+        });
     }
 
     // Check if the password correct
     const passwordCorrect = await bcrypt.compare(userData.password, user.password)
 
     if(!passwordCorrect){
-        return res.status(400).send("Invalid credentials")
+        return res.status(401).json({
+            success: false,
+            message: "Email or password is invalid"
+        });
     }
 
     const token = newToken(user);
     res.status(200).json({
         token:token,
         expiresIn: '3600',
-        status: 'Logged In'
+        userId: user._id,
+        role: 'admin'
     })
 }
 
@@ -111,21 +128,28 @@ export const managerLogin = async (req, res) => {
                                  .select('email password')
                                  .exec()
     if(!manager) {
-        return res.status(401).send("Email or password is invalid")
+        return res.status(401).json({
+            success: false,
+            message: "Email or password is invalid"
+        });
     }
 
     // Check if the password correct
     const passwordCorrect = await bcrypt.compare(managerData.password, manager.password)
 
     if(!passwordCorrect){
-        return res.status(400).send("Invalid credentials")
+        return res.status(401).json({
+            success: false,
+            message: "Email or password is invalid"
+        });
     }
 
     const token = newToken(manager);
     res.status(200).json({
-        token:token,
+        token: token,
         expiresIn: '3600',
-        status: 'Logged In'
+        userId: manager._id,
+        role: 'manager'
     })
 }
 
@@ -142,21 +166,28 @@ export const employeeLogin = async (req, res) => {
                                  .select('email password')
                                  .exec()
     if(!employee) {
-        return res.status(401).send("Email or password is invalid")
+        return res.status(401).json({
+            success: false,
+            message: "Email or password is invalid"
+        });
     }
 
     // Check if the password correct
     const passwordCorrect = await bcrypt.compare(employeeData.password, employee.password)
 
     if(!passwordCorrect){
-        return res.status(400).send("Invalid credentials")
+        return res.status(401).json({
+            success: false,
+            message: "Email or password is invalid"
+        });
     }
 
     const token = newToken(employee);
     res.status(200).json({
         token:token,
         expiresIn: '3600',
-        status: 'Logged In'
+        userId: employee._id,
+        role: 'employee'
     })
 }
 
@@ -169,14 +200,18 @@ export const protect = async (req, res, next) => {
     }
   
     const token = bearer.split("Bearer ")[1].trim();
-    let payload;
     try {
-      payload = await verifyToken(token);
+      const decodedToken = jwt.verify(token, process.env.TOKEN)
+      req.user = {id: decodedToken.id}
+      next()
     } catch (e) {
-      return res.status(401).end();
+        if(e.name === 'TokenExpiredError'){
+            return res.status(401).json({
+                success: false,
+                error: e.message
+            });
+        }
+        res.status(500).end();
     }
-  
-    req.user = payload;
-    next();
 };
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.protect = exports.employeeLogin = exports.managerLogin = exports.login = exports.register = exports.verifyToken = exports.newToken = undefined;
+exports.protect = exports.employeeLogin = exports.managerLogin = exports.login = exports.register = exports.newToken = undefined;
 
 var _jsonwebtoken = require("jsonwebtoken");
 
@@ -18,6 +18,8 @@ var _user = require("../resources/user/user.model");
 var _manager = require("../resources/manager/manager.model");
 
 var _employee = require("../resources/employee/employee.model");
+
+var _restaurant = require("../resources/restaurant/restaurant.model");
 
 var _validation = require("./validation");
 
@@ -37,15 +39,6 @@ const newToken = exports.newToken = user => {
   });
 };
 
-const verifyToken = exports.verifyToken = token => {
-  new Promise((resolve, reject) => {
-    _jsonwebtoken2.default.verify(token, process.env.TOKEN, (err, payload) => {
-      if (err) return reject(err);
-      resolve(payload);
-    });
-  });
-};
-
 const register = exports.register = async (req, res) => {
   // Pass user input to validate with Joi
   const {
@@ -62,12 +55,31 @@ const register = exports.register = async (req, res) => {
 
   const salt = await _bcrypt2.default.genSalt(10); // Hash
 
-  const hashPassword = await _bcrypt2.default.hash(req.body.password, salt); // Assign the given password with hashPassword
-
-  req.body.password = hashPassword; // Creating new user
+  const hashPassword = await _bcrypt2.default.hash(req.body.password, salt); // Creating new user
 
   try {
-    const savedManager = await _manager.Manager.create(req.body);
+    const newRestaurant = new _restaurant.Restaurant({
+      name: req.body.restaurantName,
+      address: req.body.restaurantAddress,
+      pos: req.body.pos
+    });
+    const savedRestaurant = await _restaurant.Restaurant.create(newRestaurant);
+
+    if (!savedRestaurant) {
+      return res.status(400).json({
+        success: false,
+        message: "Failed to create restaurant"
+      });
+    }
+
+    const newManager = new _manager.Manager({
+      fName: req.body.fName,
+      lName: req.body.lName,
+      email: req.body.email,
+      password: hashPassword,
+      restaurants: savedRestaurant._id
+    });
+    const savedManager = await _manager.Manager.create(newManager);
     res.status(201).json({
       success: true,
       data: savedManager
@@ -107,21 +119,28 @@ const login = exports.login = async (req, res) => {
   }).select('email password').exec();
 
   if (!user) {
-    return res.status(401).send("Email or password is invalid");
+    return res.status(401).json({
+      success: false,
+      message: "Email or password is invalid"
+    });
   } // Check if the password correct
 
 
   const passwordCorrect = await _bcrypt2.default.compare(userData.password, user.password);
 
   if (!passwordCorrect) {
-    return res.status(400).send("Invalid credentials");
+    return res.status(401).json({
+      success: false,
+      message: "Email or password is invalid"
+    });
   }
 
   const token = newToken(user);
   res.status(200).json({
     token: token,
-    expiresIn: '3600s',
-    status: 'Logged In'
+    expiresIn: '3600',
+    userId: user._id,
+    role: 'admin'
   });
 }; // Manager Login 
 
@@ -142,21 +161,28 @@ const managerLogin = exports.managerLogin = async (req, res) => {
   }).select('email password').exec();
 
   if (!manager) {
-    return res.status(401).send("Email or password is invalid");
+    return res.status(401).json({
+      success: false,
+      message: "Email or password is invalid"
+    });
   } // Check if the password correct
 
 
   const passwordCorrect = await _bcrypt2.default.compare(managerData.password, manager.password);
 
   if (!passwordCorrect) {
-    return res.status(400).send("Invalid credentials");
+    return res.status(401).json({
+      success: false,
+      message: "Email or password is invalid"
+    });
   }
 
   const token = newToken(manager);
   res.status(200).json({
     token: token,
-    expiresIn: '3600s',
-    status: 'Logged In'
+    expiresIn: '3600',
+    userId: manager._id,
+    role: 'manager'
   });
 }; // Employee Login 
 
@@ -177,21 +203,28 @@ const employeeLogin = exports.employeeLogin = async (req, res) => {
   }).select('email password').exec();
 
   if (!employee) {
-    return res.status(401).send("Email or password is invalid");
+    return res.status(401).json({
+      success: false,
+      message: "Email or password is invalid"
+    });
   } // Check if the password correct
 
 
   const passwordCorrect = await _bcrypt2.default.compare(employeeData.password, employee.password);
 
   if (!passwordCorrect) {
-    return res.status(400).send("Invalid credentials");
+    return res.status(401).json({
+      success: false,
+      message: "Email or password is invalid"
+    });
   }
 
   const token = newToken(employee);
   res.status(200).json({
     token: token,
-    expiresIn: '3600s',
-    status: 'Logged In'
+    expiresIn: '3600',
+    userId: employee._id,
+    role: 'employee'
   });
 };
 
@@ -203,14 +236,22 @@ const protect = exports.protect = async (req, res, next) => {
   }
 
   const token = bearer.split("Bearer ")[1].trim();
-  let payload;
 
   try {
-    payload = await verifyToken(token);
-  } catch (e) {
-    return res.status(401).end();
-  }
+    const decodedToken = _jsonwebtoken2.default.verify(token, process.env.TOKEN);
 
-  req.user = payload;
-  next();
+    req.user = {
+      id: decodedToken.id
+    };
+    next();
+  } catch (e) {
+    if (e.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        error: e.message
+      });
+    }
+
+    res.status(500).end();
+  }
 };

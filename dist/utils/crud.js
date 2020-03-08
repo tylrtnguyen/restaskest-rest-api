@@ -16,19 +16,26 @@ const getOneItem = exports.getOneItem = model => async (req, res) => {
   let id = req.params.id;
 
   try {
-    const item = await model.findOneById(id).lean().exec();
+    const item = await model.findById(id).lean().exec();
 
     if (!item) {
-      res.status(400).end();
+      res.status(400).json({
+        success: false,
+        message: "Couldn't find item"
+      });
     } else {
       res.status(200).json({
         success: true,
+        message: 'Get item successfully',
         data: item
       });
     }
   } catch (err) {
     console.log(err);
-    res.status(400).send('Failed to fetch item');
+    res.status(400).json({
+      success: false,
+      message: 'Failed to fetch item'
+    });
   }
 }; // Get all item
 
@@ -94,7 +101,7 @@ const addItem = exports.addItem = model => async (req, res) => {
       console.log(err);
       return res.status(500).json({
         success: false,
-        error: 'Server Error'
+        message: 'Server Error'
       });
     }
   }
@@ -116,6 +123,7 @@ const updateItem = exports.updateItem = model => async (req, res) => {
 
     res.status(200).json({
       success: true,
+      message: "Item updated successfully",
       data: updatedItem
     });
   } catch (error) {
@@ -130,10 +138,13 @@ const removeItem = exports.removeItem = model => async (req, res) => {
   try {
     const removedItem = model.findOneAndRemove({
       _id: req.params.id
-    });
+    }).exec();
 
     if (!removedItem) {
-      res.status(400).send("Failed to remove item");
+      res.status(400).json({
+        success: false,
+        message: "Couldn't delete item"
+      });
     }
 
     res.status(200).json({

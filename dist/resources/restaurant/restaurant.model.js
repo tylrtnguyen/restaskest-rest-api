@@ -21,7 +21,7 @@ let restaurantSchema = new Schema({
     type: String,
     required: true
   },
-  phoneNumber: {
+  pos: {
     type: String,
     required: true
   },
@@ -33,10 +33,10 @@ let restaurantSchema = new Schema({
     type: _mongoose2.default.Schema.Types.ObjectId,
     ref: "Employee"
   }],
-  inventory: [{
+  inventory: {
     type: _mongoose2.default.Schema.Types.ObjectId,
     ref: "Inventory"
-  }]
+  }
 });
 
 const Restaurant = exports.Restaurant = _mongoose2.default.model('restaurant', restaurantSchema);

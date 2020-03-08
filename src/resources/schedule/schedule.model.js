@@ -19,12 +19,10 @@ let scheduleSchema = new Schema({
                 required: true
             },
             inHour: {
-                type: Number,
-                required: true
+                type: Number
             },
             outHour: {
-                type: Number,
-                required: true
+                type: Number
             }
         }
     ],
