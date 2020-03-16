@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "restaskest84",
+  "private_key_id": "740383cd4b6adfe16496b00ab1413c8e9ec8bc16",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD5ZHRQMMfgEjQ4\nG8oSgZokXmcvJ6Q+7ICsEPWi2yjzmIfqrAtnD3djFPJZvlUQm5efUYfLwXljo12s\nme/l2RJd161qi/+o6IrCWNjM4GE5AErdktT3kWkgJx1guSQUrPfCA53kge/2AUlw\nNp5wm5SnID+UCmK4wepnF+ff/aHqAgSdhzIpZ+FqzHd/MgmTqJCQN7GP8XIJFO/k\neS1QDpSkW2uz+/g6qON+pyX+BgLEtr/jdF8tATmTEzJ3GrvXcSOZouc7VCv9EmCw\n6GhdnBs8KOiPB1jnqQvDNPWx07JcD3B8QcO+sWNx/Di41bJ7KeHUnhPOXORL1481\nOnwM7LPhAgMBAAECggEAEcgnVkZmzKO6Txvazcn+3xlPZc3U81rylmeD1CT956yD\nAxOu9nNkXE9fM6Xos81G7ihRNJEqzL9rtkWoP20PAbDsn6cJchYuj/U8yWg1lmuz\nwCuwJ/zEEEj/BRP+WMO3y1YYWSAop2jnvxVYjl08J/8aeWg/f2lC2NnxVwe4a+et\nOrNeqgjveRcUl1Nbu7k6DF+Du0/FeLn7xKMHERFLQrU4+LRzyxmgPxFKhhuj1NYQ\n7y7YU0STM/S0NQjZ6l0yyHKBrudlhTbprhrnuxjLE+yQ/kDQhAKabSG7bLOY+AeX\nxcBAWAW0mMqLrYHi/B9hrzUfK7aeYNj4oDgEaIx9aQKBgQD/kogwhZ6/tjg1vlUy\nMulWOAVvisEVIEBhN1cZc7t+byXoLplF5pZex2FA4ZKGiQUJYC9V2YipSzbFVMMH\nh4PiRMB/HeAeYYfq5zqi8YMmWXDVisu7slgJ5u23MiBSpHmrrSlM4wbkHFh1kyaR\n4nUWcZEDp8CLX4C9Rl1t3Om/JQKBgQD5z0Z7AvD6XlhSUAlHFFxoodUsQLsLTHDJ\nFFJ/A6+XUS/MFApBfxCEn4WTxTvkJusKHBqT6olGSHgBjR1oL6b+rY5QaERESSqh\nDGuSov2QU0/jKa39a332La4EaZEBYUSuEEdrM4m9HRgSb6PVPVUkSd6qxYQsUjXj\nAaDpvjFTDQKBgQC6YnAGCvy6TbbyoutZH74CDfsQ3L1xncK143kW68s6Ku8XRByt\n2LujRX7MpXWJvhW5P7dlwa6j4GGCSg2tyQvKkV9dlTkkjvZjvtyJht6hsirS4VUx\nfqAsIIkOyHTAMIk3RaLQGuWkqHNu07EWRXQkuRAL/WQzgKPP5agvfiPOLQKBgHd7\njmhzxbLawT/NjEJ1GKXrEbzy0QPcce2bTMH3j1q+uC/SPf2JuurUKd297qF3g9/4\nBTZObY4yR0PmrPQSJruVY4ZN+Kj4ne0dta4TS1hmoMU0QEX/zeWbf6oYnASe82yV\n2LMLmYvciJD42NG7XifXNStVAZz5TVDgjIiAMbNZAoGBAKF576NkCj41hXJQZSuP\nyYsh5r8ryige+2ZDFRqTJofDyv51tMmL4baXLdQsuQEVTJvHrb0oNGKYTA52YawM\nAfA4kEc0nYxrZwMDJ88/72+bzSsDikkKmdirygxF5BDGmqpRGWOD+bPDQafCrszE\nbV6pixa47k7cv9hwQXrOj5Je\n-----END PRIVATE KEY-----\n",
+  "client_email": "restaskest-frontend@restaskest84.iam.gserviceaccount.com",
+  "client_id": "105465494529253155842",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/restaskest-frontend%40restaskest84.iam.gserviceaccount.com"
+}
