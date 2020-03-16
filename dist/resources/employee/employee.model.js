@@ -19,6 +19,7 @@ var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator)
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const now = (0, _moment2.default)();
 const Schema = _mongoose2.default.Schema;
 const employeeSchema = new Schema({
   fName: {
@@ -31,18 +32,29 @@ const employeeSchema = new Schema({
     required: true,
     max: 255
   },
+  gender: {
+    type: String,
+    required: true
+  },
+  department: {
+    type: String,
+    required: true
+  },
   address: {
     type: String
   },
   DOB: {
     type: String
   },
+  isPermanent: {
+    type: Boolean
+  },
   wages: {
     type: Number
   },
   JoinDate: {
     type: String,
-    default: (0, _moment2.default)().format('ll')
+    default: (0, _moment2.default)().format('YYYY-MM-DD')
   },
   email: {
     type: String,

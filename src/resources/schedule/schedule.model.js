@@ -11,11 +11,11 @@ let scheduleSchema = new Schema({
                 required: true
             },
             assignedStartHour: {
-                type: String,
+                type: Number,
                 required: true
             },
             assignedStopHour: {
-                type: String,
+                type: Number,
                 required: true
             },
             inHour: {

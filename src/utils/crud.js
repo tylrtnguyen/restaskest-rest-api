@@ -131,7 +131,7 @@ export const removeItem = model => async (req, res) => {
     try {
         const removedItem = model.findOneAndRemove({_id: req.params.id}).exec()
         if(!removedItem) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Couldn't delete item"
             })
@@ -147,10 +147,49 @@ export const removeItem = model => async (req, res) => {
     }   
 }
 
+export const getEmployeeWorkHours = model => async (req, res) => {
+    try {
+        const workSchedule = await model.find({ employee: req.params.id }).exec()
+        if(!workSchedule){
+            return res.status(404).json({
+                success: false,
+                message: "No hours on this period"
+            })
+        }
+        // Already have the schedule list
+        // workSchedule = [workDays]
+        // workDays = [{}]
+        // Loop to filter workDays that have date as user input and sum the total
+        let totalWorkHours = 0
+        let start = req.params.start  // "2020-03-27T04:00:00.000Z"
+        let stop = req.params.stop // "2020-03-30T04:00:00.000Z"
+        let from = new Date(start).getTime()
+        let to = new Date(stop).getTime()
+        for (const schedule of workSchedule){
+            for (const workDay of schedule.workDays){
+                const checkDate = workDay.date.getTime();
+                if (checkDate >= from && checkDate <= to){
+                    let workHours = (workDay.assignedStopHour - workDay.assignedStartHour);
+                    totalWorkHours += workHours
+                }
+            }
+        }
+        res.status(200).json({
+            success: true,
+            data: totalWorkHours
+        })
+    }
+    catch (e) {
+        console.log(e)
+        res.status(400).end()
+    }
+}
+
 export const crudControllers = model => ({
     getOneItem: getOneItem(model),
     getAllItems: getAllItems(model),
     addItem: addItem(model),
     updateItem: updateItem(model),
-    removeItem: removeItem(model)
+    removeItem: removeItem(model),
+    getEmployeeWorkHours: getEmployeeWorkHours(model)
 })

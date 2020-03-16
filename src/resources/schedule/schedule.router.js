@@ -16,5 +16,9 @@ router
   .put(controllers.updateItem)
   .delete(controllers.removeItem)
 
+// /api/schedule/workhours/:id
+router.route('/workhours/:id/:start/:stop')
+      .get(controllers.getEmployeeWorkHours)
+
 export default router
       

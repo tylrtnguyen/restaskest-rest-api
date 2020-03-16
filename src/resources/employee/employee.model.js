@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import moment from 'moment'
 import uniqueValidator from 'mongoose-unique-validator'
 
+const now = moment();
+
 
 const Schema = mongoose.Schema
 
@@ -38,7 +40,7 @@ const employeeSchema = new Schema({
     },
     JoinDate:{
         type: String,
-        default: moment().format('ll')
+        default: moment().format('YYYY-MM-DD')
     },
     email:{
         type: String,

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.crudControllers = exports.removeItem = exports.updateItem = exports.addItem = exports.getAllItems = exports.getOneItem = undefined;
+exports.crudControllers = exports.getEmployeeWorkHours = exports.removeItem = exports.updateItem = exports.addItem = exports.getAllItems = exports.getOneItem = undefined;
 
 var _bcrypt = require("bcrypt");
 
@@ -141,7 +141,7 @@ const removeItem = exports.removeItem = model => async (req, res) => {
     }).exec();
 
     if (!removedItem) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Couldn't delete item"
       });
@@ -157,10 +157,60 @@ const removeItem = exports.removeItem = model => async (req, res) => {
   }
 };
 
+const getEmployeeWorkHours = exports.getEmployeeWorkHours = model => async (req, res) => {
+  try {
+    const workSchedule = await model.find({
+      employee: req.params.id
+    }).exec();
+
+    if (!workSchedule) {
+      return res.status(404).json({
+        success: false,
+        message: "No hours on this period"
+      });
+    } // Already have the schedule list
+    // workSchedule = [workDays]
+    // workDays = [{}]
+    // Loop to filter workDays that have date as user input and sum the total
+
+
+    let totalWorkHours = 0;
+    let start = req.params.start; // "2020-03-27T04:00:00.000Z"
+
+    let stop = req.params.stop; // "2020-03-30T04:00:00.000Z"
+
+    let from = new Date(start).getTime();
+    let to = new Date(stop).getTime();
+    console.log(from);
+    console.log(to);
+
+    for (const schedule of workSchedule) {
+      for (const workDay of schedule.workDays) {
+        const checkDate = workDay.date.getTime();
+
+        if (checkDate >= from && checkDate <= to) {
+          let workHours = workDay.assignedStopHour - workDay.assignedStartHour;
+          totalWorkHours += workHours;
+        }
+      }
+    }
+
+    console.log(totalWorkHours);
+    res.status(200).json({
+      success: true,
+      data: totalWorkHours
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).end();
+  }
+};
+
 const crudControllers = exports.crudControllers = model => ({
   getOneItem: getOneItem(model),
   getAllItems: getAllItems(model),
   addItem: addItem(model),
   updateItem: updateItem(model),
-  removeItem: removeItem(model)
+  removeItem: removeItem(model),
+  getEmployeeWorkHours: getEmployeeWorkHours(model)
 });
