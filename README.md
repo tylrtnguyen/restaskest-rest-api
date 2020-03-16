@@ -15,7 +15,7 @@
 ![Output Image](./assets/output.png)
 
 ### 2. API Endpoint
-#### API URL: http://restaskest-api.herokuapp.com/api
+#### API URL: https://restaskest84.appspot.com/
 Endpoint | Method | Purpose | Accessibility
 --- | --- | --- | ---
 /schema_name | GET | List all | Private
@@ -25,7 +25,7 @@ Endpoint | Method | Purpose | Accessibility
 /schema_name/:id | DELETE | Delete | Private
 
 ### 3. API Authentication Endpoint
-#### API URL: http://restaskest-api.herokuapp.com/
+#### API URL: https://restaskest84.appspot.com
 #### Notes: Employees cannot signup by themselves, they can only be added by their manager/owner
 Endpoint | Method | Purpose | Accessibility
 --- | --- | --- | ---
@@ -53,7 +53,7 @@ ID | Schema Name
 
 
 ### 4. Authentication Routes
-#### Link to access: http://restaskest-api.herokuapp.com/
+#### Link to access: https://restaskes84.appspot.com/
 Endpoint | Method | Purpose
 --- | --- | ---
 /register | POST | Add a new user (JSON format {name, email, password} )
