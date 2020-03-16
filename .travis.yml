@@ -17,4 +17,5 @@ deploy:
   key_file: service-account.json
   project: restaskest84
   on:
-    repo: tylrtnguyen/restaskest-rest-api
+    all_branches: true
+  skip_cleanup: true
