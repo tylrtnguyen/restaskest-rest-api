@@ -12,7 +12,7 @@ script:
 - npm run build
 deploy:
   provider: gae
-  key_file: restaskest.json
+  key_file: restaskest.json.enc
   project: restaskest84
   on:
     repo: tylrtnguyen/restaskest-rest-api
