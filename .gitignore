@@ -3,6 +3,6 @@ npm-debug.log
 .DS_Store
 /*.env
 .now
-test.rest
+*.rest
 dist
-restaskest.json
+./service-account.json

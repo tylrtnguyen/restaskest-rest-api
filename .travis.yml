@@ -5,6 +5,8 @@ cache:
   directories:
   - node_modules
 before_install:
+- openssl aes-256-cbc -K $encrypted_56f6ed9ca489_key -iv $encrypted_56f6ed9ca489_iv
+  -in service-account.json.enc -out service-account.json -d
 - npm config set spin false
 install:
 - npm install
@@ -12,10 +14,7 @@ script:
 - npm run build
 deploy:
   provider: gae
-  key_file: restaskest.json.enc
+  key_file: service-account.json
   project: restaskest84
   on:
     repo: tylrtnguyen/restaskest-rest-api
-dd:
-- openssl aes-256-cbc -K $encrypted_56f6ed9ca489_key -iv $encrypted_56f6ed9ca489_iv
-  -in restaskest.json.enc -out restaskest.json -d
