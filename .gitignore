@@ -3,8 +3,8 @@ npm-debug.log
 .DS_Store
 /*.env
 .now
-*.rest
+test.rest
 dist
-service-account.*
+service-account.json
 test.*
 logs/
