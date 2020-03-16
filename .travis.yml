@@ -5,9 +5,8 @@ cache:
   directories:
   - node_modules
 before_install:
-- openssl aes-256-cbc -K $encrypted_56f6ed9ca489_key -iv $encrypted_56f6ed9ca489_iv
-  -in service-account.json.enc -out service-account.json -d
-- npm config set spin false
+  - openssl aes-256-cbc -K $encrypted_56f6ed9ca489_key -iv $encrypted_56f6ed9ca489_iv
+    -in service-account.json.enc -out service-account.json -d
 install:
 - npm install
 script:
@@ -19,3 +18,4 @@ deploy:
   on:
     all_branches: true
   skip_cleanup: true
+
