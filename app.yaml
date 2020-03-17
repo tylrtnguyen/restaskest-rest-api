@@ -1,5 +1,5 @@
 runtime: nodejs12
-env: flex
+env: standard
 manual_scaling:
     instances: 1
 resources:
