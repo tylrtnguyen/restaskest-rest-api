@@ -19,4 +19,5 @@ deploy:
   on:
     all_branches: true
   skip_cleanup: true
+  no_promote: true
 
