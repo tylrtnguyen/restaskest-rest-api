@@ -7,3 +7,4 @@ dist
 credentials.tar.gz
 test.*
 logs
+api_key.py
