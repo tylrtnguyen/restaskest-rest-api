@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
-import employee from '../employee/employee.model'
+import uniqueValidator from 'mongoose-unique-validator'
+
 
 const Schema = mongoose.Schema
 
@@ -8,7 +9,8 @@ let scheduleSchema = new Schema({
         {
             date:{
                 type: Date,
-                required: true
+                required: true,
+                unique: true
             },
             assignedStartHour: {
                 type: Number,
@@ -31,5 +33,7 @@ let scheduleSchema = new Schema({
         ref:'Employee'
     }
 })
+
+scheduleSchema.plugin(uniqueValidator, { message: 'Duplicate shift for this employee' })
 
 export const Schedule = mongoose.model('schedule', scheduleSchema)

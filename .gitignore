@@ -1,9 +1,9 @@
-/node_modules
+node_modules
 npm-debug.log
 .DS_Store
-/*.env
-/*.now
-/dist
-/service-account.json
+*.env
+*.now
+dist
+service-account.json
 test.*
-logs/
+logs

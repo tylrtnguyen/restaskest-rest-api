@@ -9,9 +9,9 @@ var _mongoose = require("mongoose");
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _employee = require("../employee/employee.model");
+var _mongooseUniqueValidator = require("mongoose-unique-validator");
 
-var _employee2 = _interopRequireDefault(_employee);
+var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20,7 +20,8 @@ let scheduleSchema = new Schema({
   workDays: [{
     date: {
       type: Date,
-      required: true
+      required: true,
+      unique: true
     },
     assignedStartHour: {
       type: Number,
@@ -41,6 +42,9 @@ let scheduleSchema = new Schema({
     type: _mongoose2.default.Schema.Types.ObjectId,
     ref: 'Employee'
   }
+});
+scheduleSchema.plugin(_mongooseUniqueValidator2.default, {
+  message: 'Duplicate shift for this employee'
 });
 
 const Schedule = exports.Schedule = _mongoose2.default.model('schedule', scheduleSchema);
