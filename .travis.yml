@@ -14,7 +14,7 @@ script:
 - npm run build
 deploy:
   provider: gae
-  key_file: service-account.json
+  key_file: credentials.tar.gz.enc
   project: restaskest84
   on:
     all_branches: true

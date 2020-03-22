@@ -4,6 +4,6 @@ npm-debug.log
 *.env
 *.now
 dist
-service-account.json
+credentials.tar.gz
 test.*
 logs
