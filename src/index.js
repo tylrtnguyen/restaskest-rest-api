@@ -17,6 +17,7 @@ import managerRouter from './resources/manager/manager.router'
 import materialRouter from './resources/material/material.router'
 import paymentRouter from './resources/payment/payment.router'
 import stationRouter from './resources/station/station.router'
+import payrollRouter from './resources/payroll/payroll.router'
 
 
 const app = express();
@@ -53,9 +54,11 @@ app.use('/api/employee', employeeRouter);
 app.use('/api/item', itemRouter);
 app.use('/api/manager', managerRouter);
 app.use('/api/material', materialRouter);
-app.use('/api/payment', paymentRouter)
-app.use('/api/restaurant', restaurantRouter)
-app.use('/api/station', stationRouter)
+app.use('/api/payment', paymentRouter);
+app.use('/api/restaurant', restaurantRouter);
+app.use('/api/station', stationRouter);
+app.use('/api/payroll', payrollRouter);
+
 
 
 export const start = async () => {

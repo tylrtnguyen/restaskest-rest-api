@@ -115,6 +115,17 @@ const addItem = exports.addItem = model => async (req, res) => {
 
 const updateItem = exports.updateItem = model => async (req, res) => {
   try {
+    // Hash Password if update employee or manager
+    if (req.body.password) {
+      // Password modification section
+      // 1. Salt and hash password
+      // Salt
+      const salt = await _bcrypt2.default.genSalt(10); // Hash
+
+      const hashPassword = await _bcrypt2.default.hash(req.body.password, salt);
+      req.body.password = hashPassword;
+    }
+
     const updatedItem = await model.findOneAndUpdate({
       _id: req.params.id
     }, req.body, // Add item to database if item does not exist
@@ -336,6 +347,14 @@ const getAllShifts = exports.getAllShifts = model => async (req, res) => {
     for (const shift of schedule) {
       for (const workDay of shift.workDays) {
         const foundEmployee = await _employee.Employee.findById(shift.employee).lean().exec();
+
+        if (!foundEmployee) {
+          return res.status(400).json({
+            success: false,
+            message: 'Employee not found'
+          });
+        }
+
         returnShift.push({
           id: shift._id,
           shiftId: workDay._id,
@@ -355,7 +374,10 @@ const getAllShifts = exports.getAllShifts = model => async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    res.status(400).end();
+    res.status(500).json({
+      success: false,
+      message: 'Server Error'
+    });
   }
 };
 /* 

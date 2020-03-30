@@ -67,6 +67,10 @@ var _station = require("./resources/station/station.router");
 
 var _station2 = _interopRequireDefault(_station);
 
+var _payroll = require("./resources/payroll/payroll.router");
+
+var _payroll2 = _interopRequireDefault(_payroll);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // jshint: es6
@@ -104,6 +108,7 @@ app.use('/api/material', _material2.default);
 app.use('/api/payment', _payment2.default);
 app.use('/api/restaurant', _restaurant2.default);
 app.use('/api/station', _station2.default);
+app.use('/api/payroll', _payroll2.default);
 
 const start = exports.start = async () => {
   try {

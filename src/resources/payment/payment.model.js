@@ -7,6 +7,10 @@ let paymentSchema = new Schema({
         type:Number,
         required: true
     },
+    amount_refunded: {
+        type: Number,
+        require: true
+    },
     arrival_date: {
         type: Number,
         required: true

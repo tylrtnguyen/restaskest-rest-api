@@ -111,6 +111,16 @@ export const addItem = model => async (req, res) => {
 // Update item
 export const updateItem = model => async (req, res) => {
     try {
+        // Hash Password if update employee or manager
+        if (req.body.password) {
+            // Password modification section
+            // 1. Salt and hash password
+            // Salt
+            const salt = await bcrypt.genSalt(10);
+            // Hash
+            const hashPassword = await bcrypt.hash(req.body.password, salt);
+            req.body.password = hashPassword;
+        }
         const updatedItem = await model
             .findOneAndUpdate({
                     _id: req.params.id
@@ -336,6 +346,12 @@ export const getAllShifts = model => async (req, res) => {
         for (const shift of schedule) {
             for (const workDay of shift.workDays) {
                 const foundEmployee = await Employee.findById(shift.employee).lean().exec()
+                if(!foundEmployee){
+                    return res.status(400).json({
+                        success: false,
+                        message: 'Employee not found'
+                    })
+                }
                 returnShift.push({
                     id: shift._id,
                     shiftId: workDay._id,
@@ -354,7 +370,10 @@ export const getAllShifts = model => async (req, res) => {
         })
     } catch (e) {
         console.log(e);
-        res.status(400).end()
+        res.status(500).json({
+            success: false,
+            message: 'Server Error'
+        })
     }
 }
 
@@ -371,7 +390,9 @@ export const getAllShifts = model => async (req, res) => {
 */
 export const getShiftByEmployeeId = model => async (req, res) => {
     try {
-        const schedule = await model.find({employee: req.params.id}).lean().exec()
+        const schedule = await model.find({
+            employee: req.params.id
+        }).lean().exec()
         let returnShift = [];
         for (const shift of schedule) {
             for (const workDay of shift.workDays) {
