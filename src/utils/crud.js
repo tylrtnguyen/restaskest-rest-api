@@ -5,6 +5,9 @@ import {
     getOneEmployeesShift
 } from "./employeeWorkHour";
 import {
+    saveStripeRecord
+} from "./stripe"
+import {
     Employee
 } from "../resources/employee/employee.model";
 import {
@@ -417,6 +420,9 @@ export const getShiftByEmployeeId = model => async (req, res) => {
     }
 }
 
+
+
+
 export const crudControllers = model => ({
     getOneItem: getOneItem(model),
     getAllItems: getAllItems(model),
@@ -428,5 +434,6 @@ export const crudControllers = model => ({
     getAllShifts: getAllShifts(model),
     getShiftByEmployeeId: getShiftByEmployeeId(model),
     getOneEmployeesShiftByDate: getOneEmployeesShiftByDate(model),
-    getAllEmployeesShiftByDate: getAllEmployeesShiftByDate(model)
+    getAllEmployeesShiftByDate: getAllEmployeesShiftByDate(model),
+    saveStripeRecord: saveStripeRecord(model)
 });

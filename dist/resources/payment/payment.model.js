@@ -13,15 +13,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const Schema = _mongoose2.default.Schema;
 let paymentSchema = new Schema({
-  amount: {
-    type: Number,
+  stripe_id: {
+    type: String,
     required: true
   },
-  amount_refunded: {
-    type: Number,
-    require: true
+  object_type: {
+    type: String,
+    required: true
   },
-  arrival_date: {
+  amount: {
     type: Number,
     required: true
   },
@@ -32,19 +32,12 @@ let paymentSchema = new Schema({
   failure_message: {
     type: String
   },
-  failure_code: {
-    type: Number
-  },
-  source_type: {
-    type: String,
+  billing_details: {
+    type: Object,
     required: true
   },
-  status: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
+  paid: {
+    type: Boolean,
     required: true
   }
 });

@@ -11,6 +11,8 @@ var _bcrypt2 = _interopRequireDefault(_bcrypt);
 
 var _employeeWorkHour = require("./employeeWorkHour");
 
+var _stripe = require("./stripe");
+
 var _employee = require("../resources/employee/employee.model");
 
 var _schedule = require("../resources/schedule/schedule.model");
@@ -435,5 +437,6 @@ const crudControllers = exports.crudControllers = model => ({
   getAllShifts: getAllShifts(model),
   getShiftByEmployeeId: getShiftByEmployeeId(model),
   getOneEmployeesShiftByDate: getOneEmployeesShiftByDate(model),
-  getAllEmployeesShiftByDate: getAllEmployeesShiftByDate(model)
+  getAllEmployeesShiftByDate: getAllEmployeesShiftByDate(model),
+  saveStripeRecord: (0, _stripe.saveStripeRecord)(model)
 });

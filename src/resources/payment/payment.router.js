@@ -7,7 +7,7 @@ const router = Router()
 router
   .route('/')
   .get(controllers.getAllItems)
-  .post(controllers.addItem)
+  .post(controllers.saveStripeRecord)
 
 // @route /api/payment/:id
 router
