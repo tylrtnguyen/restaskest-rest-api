@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_live_F5kCfooJjV4GNciyBrP47pAu00N9ePJjku')
+const stripe = require('stripe')('sk_test_PbX6P4RUlkeJbTHl9wLR0iRh00tyy52WRn')
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 
