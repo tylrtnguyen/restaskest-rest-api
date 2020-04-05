@@ -1,4 +1,4 @@
-import Stripe from 'stripe'
+const stripe = require('stripe')('pk_live_TOFaLTK9kraPxqxvmIGH2Wxv00beXAaQEX')
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 
@@ -18,8 +18,6 @@ dotenv.config()
 */
 const stripeProcessor = async (req, res) => {
     try {
-        const stripe = new Stripe();
-
         const tokenObject = req.body.stripe_token
         const customerPlan = req.body.plan
 

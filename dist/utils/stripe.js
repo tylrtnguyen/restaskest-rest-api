@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.saveStripeRecord = undefined;
 
-var _stripe = require("stripe");
-
-var _stripe2 = _interopRequireDefault(_stripe);
-
 var _nodemailer = require("nodemailer");
 
 var _nodemailer2 = _interopRequireDefault(_nodemailer);
@@ -18,6 +14,8 @@ var _dotenv = require("dotenv");
 var _dotenv2 = _interopRequireDefault(_dotenv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const stripe = require('stripe')('pk_live_TOFaLTK9kraPxqxvmIGH2Wxv00beXAaQEX');
 
 _dotenv2.default.config();
 /* 
@@ -36,7 +34,6 @@ _dotenv2.default.config();
 
 const stripeProcessor = async (req, res) => {
   try {
-    const stripe = new _stripe2.default();
     const tokenObject = req.body.stripe_token;
     const customerPlan = req.body.plan; // Destructure the custommerPlan object
 
