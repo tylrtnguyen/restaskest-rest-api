@@ -15,7 +15,7 @@ var _dotenv2 = _interopRequireDefault(_dotenv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const stripe = require('stripe')('pk_live_TOFaLTK9kraPxqxvmIGH2Wxv00beXAaQEX');
+const stripe = require('stripe')('sk_test_PbX6P4RUlkeJbTHl9wLR0iRh00tyy52WRn');
 
 _dotenv2.default.config();
 /* 
