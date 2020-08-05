@@ -32,7 +32,7 @@ app.use(cors())
 
 app.use(express.static(__dirname + "/public"));
 
-app.get('/', (req, res) => {
+app.get('/^(?!.*_ah).*$/', (req, res) => {
   res.sendFile(__dirname + "/index.html")
 })
 
