@@ -5,7 +5,7 @@ cache:
   directories:
   - node_modules
 before_install:
-- openssl aes-256-cbc -K $encrypted_9d78bf314d88_key -iv $encrypted_9d78bf314d88_iv
+- openssl aes-256-cbc -K $encrypted_e432962c2b68_key -iv $encrypted_e432962c2b68_iv
   -in service-account.json.enc -out service-account.json -d
 - npm i -g npm
 install:
@@ -15,7 +15,7 @@ script:
 deploy:
   provider: gae
   key_file: service-account.json.enc
-  project: restaskest84
+  project: restaskest-api
   on:
     all_branches: true
   skip_cleanup: true

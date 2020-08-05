@@ -3,7 +3,7 @@ npm-debug.log
 .DS_Store
 *.env
 *.now
-./dist
+/dist
 credentials.tar.gz
 test.*
 logs
