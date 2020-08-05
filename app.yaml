@@ -1,4 +1,4 @@
-runtime: nodejs14
+runtime: nodejs12
 env: standard
 manual_scaling:
     instances: 1
