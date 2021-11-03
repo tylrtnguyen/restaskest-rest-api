@@ -33,7 +33,7 @@
     "nodemailer": "^6.4.6",
     "stripe": "^8.38.0",
     "travis-cli": "^1.0.9",
-    "validator": "^12.2.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
